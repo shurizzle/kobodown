@@ -1,0 +1,75 @@
+[package]
+name = "kobodown"
+version = "0.1.0"
+edition = "2021"
+
+[profile.dev.package.backtrace]
+opt-level = 3
+
+[features]
+default = ["curl", "quickjs-ng"]
+rustls = ["ureq?/rustls"]
+native-tls = ["ureq?/native-tls"]
+boa = ["dep:boa_engine"]
+v8 = ["dep:mini-v8"]
+quickjs = ["dep:quickjs_runtime", "quickjs_runtime/bellard"]
+quickjs-ng = ["dep:quickjs_runtime", "quickjs_runtime/quickjs-ng"]
+curl = ["dep:curl"]
+
+[dependencies]
+aes = "0.8.4"
+ecb = { version = "0.1.2", features = ["std"] }
+base64 = "0.22.1"
+boa_engine = { version = "0.20.0", optional = true }
+cfg-if = "1.0.0"
+clap = { version = "4.5.26", features = ["derive"] }
+color-eyre = "0.6.3"
+directories = "6.0.0"
+encoding_rs = "0.8.35"
+encoding_rs_io = "0.1.7"
+http = "1.2.0"
+mini-v8 = { version = "0.4.1", optional = true }
+quickjs_runtime = { version = "0.14.5", default-features = false, optional = true }
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.137"
+serde_qs = "0.13.0"
+sha2 = "0.10.8"
+thiserror = "2.0.11"
+tracing = "0.1.41"
+tracing-error = "0.2.1"
+tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
+url = "2.5.4"
+uuid = { version = "1.12.0", features = ["v7"] }
+vec_extract_if_polyfill = "0.1.0"
+zip = { version = "2.2.2", default-features = false, features = ["deflate"] }
+indicatif = "0.17.9"
+tempfile = "3.15.0"
+ctrlc = { version = "3.4.5", features = ["termination"] }
+parking_lot = "0.12.3"
+sanitize-filename = "0.6.0"
+zeroize = { version = "1.8.1", default-features = false, features = ["std"] }
+rpassword = "7.3.1"
+memchr = "2.7.4"
+bytes = "1.9.0"
+dialoguer = { version = "0.11.0", default-features = false }
+
+[dependencies.cookie_store]
+version = "0.21.1"
+default-features = false
+features = ["public_suffix"]
+
+[dependencies.curl]
+features = ["force-system-lib-on-osx"]
+version = "0.4.47"
+optional = true
+
+[dependencies.scraper]
+version = "0.22.0"
+default-features = false
+features = ["errors"]
+
+[dependencies.ureq]
+version = "3.0.2"
+default-features = false
+features = ["gzip"]
+optional = true
