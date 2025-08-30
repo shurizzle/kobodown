@@ -127,7 +127,7 @@ fn charset_from_content_type<
     S: Send + Sync + 'static,
 >(
     header: &[u8],
-) -> Result<Option<Cow<[u8]>>, Error<E, S>> {
+) -> Result<Option<Cow<'_, [u8]>>, Error<E, S>> {
     let mut err = false;
     let mut res = None;
     for v in ContentType::parse(header)

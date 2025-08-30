@@ -97,7 +97,7 @@ fn pull_ident(buf: &[u8]) -> Option<(&str, &[u8])> {
     Some((unsafe { std::str::from_utf8_unchecked(tok) }, buf))
 }
 
-fn pull_value(buf: &[u8]) -> Option<(Value, &[u8])> {
+fn pull_value(buf: &[u8]) -> Option<(Value<'_>, &[u8])> {
     let (v, buf) = match buf.split_first()? {
         (&b'"', mut buf) => {
             let start = buf;
@@ -151,7 +151,7 @@ fn pull_value(buf: &[u8]) -> Option<(Value, &[u8])> {
     }
 }
 
-fn pull_parameter(buf: &[u8]) -> Option<(&str, Value, &[u8])> {
+fn pull_parameter(buf: &[u8]) -> Option<(&str, Value<'_>, &[u8])> {
     let (key, buf) = pull_ident(buf)?;
     let (&c, buf) = buf.split_first()?;
     if c != b'=' {
@@ -196,7 +196,7 @@ impl<'a> ContentType<'a> {
     }
 
     #[inline(always)]
-    pub fn media_type(&self) -> &MediaType {
+    pub fn media_type(&self) -> &MediaType<'_> {
         &self.media
     }
 
